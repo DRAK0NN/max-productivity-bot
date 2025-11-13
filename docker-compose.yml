@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  # PostgreSQL база данных
+  postgres:
+    image: postgres:15-alpine
+    container_name: prodmax_db
+    environment:
+      POSTGRES_USER: prodmax
+      POSTGRES_PASSWORD: prodmax_password
+      POSTGRES_DB: prodmax
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U prodmax"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Приложение бота
+  bot:
+    build: .
+    container_name: prodmax_bot
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - MAX_BOT_TOKEN=${MAX_BOT_TOKEN}
+      - MAX_API_URL=${MAX_API_URL:-https://platform-api.max.ru}
+      - DATABASE_URL=postgresql://prodmax:prodmax_password@postgres:5432/prodmax
+      - WEBHOOK_URL=${WEBHOOK_URL}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
