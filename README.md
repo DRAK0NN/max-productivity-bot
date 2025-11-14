@@ -30,8 +30,8 @@
 ### 1. Клонирование и настройка
 
 ```bash
-# Клонируй репозиторий (если есть)
-git clone <repository-url>
+# Клонируй репозиторий
+git clone https://github.com/DRAK0NN/max-productivity-bot
 cd MAX
 
 # Установи зависимости
