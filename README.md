@@ -32,7 +32,7 @@
 ```bash
 # Клонируй репозиторий
 git clone https://github.com/DRAK0NN/max-productivity-bot
-cd MAX
+cd max-productivity-bot
 
 # Установи зависимости
 npm install
