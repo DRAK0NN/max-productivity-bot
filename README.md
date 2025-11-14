@@ -101,8 +101,11 @@ curl -X POST http://localhost:3000/setup-webhook \
 # npm install -g @cloudflare/cloudflared
 # или используй готовый бинарник
 
-# Запусти туннель
-clo publish http localhost:3000
+# Запусти туннель (Linux)
+./clo publish http localhost:3000
+
+# Запусти туннель (Windows)
+cloudflared tunnel --url http://localhost:3000/
 
 # Скопируй URL (например: https://unevenly-subtle-saury.cloudpub.ru:443)
 # Установи webhook:
@@ -146,7 +149,7 @@ curl http://localhost:3000/health
 - `/career` - карьерные цели
 - `/goal [название]` - создать карьерную цель
 - `/stats` - статистика (задачи, Pomodoro, привычки, XP, уровень)
-- `/progress` - персональные рекомендации
+- `/progress` - цели пользователя
 
 ### Кнопки меню
 
